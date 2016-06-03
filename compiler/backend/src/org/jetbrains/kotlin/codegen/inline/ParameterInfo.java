@@ -22,13 +22,9 @@ import org.jetbrains.kotlin.codegen.StackValue;
 import org.jetbrains.org.objectweb.asm.Type;
 
 class ParameterInfo {
-
     protected final int index;
-
     protected final int declarationIndex;
-
     private boolean isCaptured;
-
     public final Type type;
 
     //for skipped parameter: e.g. inlined lambda
@@ -39,11 +35,11 @@ class ParameterInfo {
 
     public LambdaInfo lambda;
 
-    ParameterInfo(Type type, boolean skipped, int index, int remapValue, int declarationIndex) {
+    public ParameterInfo(@NotNull Type type, boolean skipped, int index, int remapValue, int declarationIndex) {
         this(type, skipped, index, remapValue == -1 ? null : StackValue.local(remapValue, type), declarationIndex);
     }
 
-    ParameterInfo(@NotNull Type type, boolean skipped, int index, @Nullable StackValue remapValue, int declarationIndex) {
+    public ParameterInfo(@NotNull Type type, boolean skipped, int index, @Nullable StackValue remapValue, int declarationIndex) {
         this.type = type;
         this.isSkipped = skipped;
         this.remapValue = remapValue;
@@ -82,12 +78,14 @@ class ParameterInfo {
         return lambda;
     }
 
+    @NotNull
     public ParameterInfo setLambda(@Nullable LambdaInfo lambda) {
         this.lambda = lambda;
         return this;
     }
 
-    public ParameterInfo setRemapValue(StackValue remapValue) {
+    @NotNull
+    public ParameterInfo setRemapValue(@Nullable StackValue remapValue) {
         this.remapValue = remapValue;
         return this;
     }
@@ -96,6 +94,7 @@ class ParameterInfo {
         return isCaptured;
     }
 
+    @NotNull
     public ParameterInfo setSkipped(boolean skipped) {
         isSkipped = skipped;
         return this;
@@ -104,5 +103,4 @@ class ParameterInfo {
     public void setCaptured(boolean isCaptured) {
         this.isCaptured = isCaptured;
     }
-
 }

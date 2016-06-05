@@ -58,7 +58,7 @@ public class CapturedParamInfo extends ParameterInfo {
     @NotNull
     private CapturedParamInfo clone(int newIndex, @Nullable StackValue newRemapIndex) {
         CapturedParamInfo capturedParamInfo = new CapturedParamInfo(desc, newFieldName, isSkipped, newIndex, newRemapIndex);
-        capturedParamInfo.setLambda(lambda);
+        capturedParamInfo.setLambda(getLambda());
         capturedParamInfo.setSkipInConstructor(skipInConstructor);
         return capturedParamInfo;
     }

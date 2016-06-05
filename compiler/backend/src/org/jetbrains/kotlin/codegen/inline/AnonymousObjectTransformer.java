@@ -249,7 +249,7 @@ public class AnonymousObjectTransformer extends ObjectTransformer<AnonymousObjec
 
         //complex processing cause it could have super constructor call params
         for (ParameterInfo info : constructorParams) {
-            if (!info.isSkipped()) { //not inlined
+            if (!info.isSkipped) { //not inlined
                 if (info.isCaptured() || info instanceof CapturedParamInfo) {
                     capturedIndexes[index] = size;
                     index++;

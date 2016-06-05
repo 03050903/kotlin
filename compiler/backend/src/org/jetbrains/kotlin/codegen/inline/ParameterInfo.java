@@ -22,18 +22,16 @@ import org.jetbrains.kotlin.codegen.StackValue;
 import org.jetbrains.org.objectweb.asm.Type;
 
 class ParameterInfo {
-    protected final int index;
-    protected final int declarationIndex;
-    private boolean isCaptured;
+    private final int index;
+    public final int declarationIndex;
     public final Type type;
-
     //for skipped parameter: e.g. inlined lambda
-    public boolean isSkipped;
+    public final boolean isSkipped;
 
+    private boolean isCaptured;
+    private LambdaInfo lambda;
     //in case when parameter could be extracted from outer context (e.g. from local var)
     private StackValue remapValue;
-
-    public LambdaInfo lambda;
 
     public ParameterInfo(@NotNull Type type, boolean skipped, int index, int remapValue, int declarationIndex) {
         this(type, skipped, index, remapValue == -1 ? null : StackValue.local(remapValue, type), declarationIndex);
@@ -48,7 +46,7 @@ class ParameterInfo {
     }
 
     public boolean isSkippedOrRemapped() {
-        return isSkipped || remapValue != null;
+        return isSkipped || isRemapped();
     }
 
     public boolean isRemapped() {
@@ -62,10 +60,6 @@ class ParameterInfo {
 
     public int getIndex() {
         return index;
-    }
-
-    public boolean isSkipped() {
-        return isSkipped;
     }
 
     @NotNull
@@ -92,12 +86,6 @@ class ParameterInfo {
 
     public boolean isCaptured() {
         return isCaptured;
-    }
-
-    @NotNull
-    public ParameterInfo setSkipped(boolean skipped) {
-        isSkipped = skipped;
-        return this;
     }
 
     public void setCaptured(boolean isCaptured) {

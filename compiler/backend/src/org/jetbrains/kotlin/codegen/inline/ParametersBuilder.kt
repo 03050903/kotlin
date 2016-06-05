@@ -36,8 +36,8 @@ internal class ParametersBuilder private constructor() {
         return info
     }
 
-    fun addNextParameter(type: Type, skipped: Boolean, remapValue: StackValue?): ParameterInfo {
-        return addParameter(ParameterInfo(type, skipped, nextValueParameterIndex, remapValue, valueAndHiddenParams.size))
+    fun addNextParameter(type: Type, skipped: Boolean): ParameterInfo {
+        return addParameter(ParameterInfo(type, skipped, nextValueParameterIndex, null, valueAndHiddenParams.size))
     }
 
     fun addNextValueParameter(type: Type, skipped: Boolean, remapValue: StackValue?, parameterIndex: Int): ParameterInfo {
@@ -126,7 +126,7 @@ internal class ParametersBuilder private constructor() {
             }
 
             for (type in Type.getArgumentTypes(descriptor)) {
-                builder.addNextParameter(type, false, null)
+                builder.addNextParameter(type, false)
             }
             return builder
         }

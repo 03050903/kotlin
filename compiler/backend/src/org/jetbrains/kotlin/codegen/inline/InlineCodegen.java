@@ -655,14 +655,14 @@ public class InlineCodegen extends CallGenerator {
     @Override
     public void putHiddenParams() {
         if ((getMethodAsmFlags(functionDescriptor, context.getContextKind()) & Opcodes.ACC_STATIC) == 0) {
-            invocationParamBuilder.addNextParameter(AsmTypes.OBJECT_TYPE, false, null);
+            invocationParamBuilder.addNextParameter(AsmTypes.OBJECT_TYPE, false);
         }
 
         for (JvmMethodParameterSignature param : jvmSignature.getValueParameters()) {
             if (param.getKind() == JvmMethodParameterKind.VALUE) {
                 break;
             }
-            invocationParamBuilder.addNextParameter(param.getAsmType(), false, null);
+            invocationParamBuilder.addNextParameter(param.getAsmType(), false);
         }
 
         invocationParamBuilder.markValueParametersStart();
